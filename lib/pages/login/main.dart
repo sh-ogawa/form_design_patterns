@@ -9,7 +9,8 @@ class LoginMainPage extends StatelessWidget {
 
   // ユーザーIDの登録セクション
   Widget _buildUserIdSection() {
-    return Container(
+    return Semantics(
+      label: 'input user id',
       child: Column(
         children: <Widget>[
           Text('ユーザーIDまたはメールアドレス'),
@@ -19,7 +20,11 @@ class LoginMainPage extends StatelessWidget {
               locator<Logger>().debug(snapshot.data);
               return TextField(
                 enabled: true,
+                keyboardType: TextInputType.emailAddress,
+                maxLines: 1,
+                maxLength: 20,
                 onChanged: bloc.userIdChanged,
+                textAlign: TextAlign.center,
               );
             },
           ),
@@ -30,7 +35,8 @@ class LoginMainPage extends StatelessWidget {
 
   // ユーザーIDの登録セクション
   Widget _buildPasswordSection() {
-    return Container(
+    return Semantics(
+      label: 'input password',
       child: Column(
         children: <Widget>[
           Text('パスワード'),
@@ -40,7 +46,11 @@ class LoginMainPage extends StatelessWidget {
               locator<Logger>().debug(snapshot.data);
               return TextField(
                 enabled: true,
+                maxLines: 1,
+                maxLength: 20,
+                obscureText: true,
                 onChanged: bloc.passwordChanged,
+                textAlign: TextAlign.center,
               );
             },
           ),
@@ -51,20 +61,40 @@ class LoginMainPage extends StatelessWidget {
 
   Widget _buildSubmitButton() {
     return StreamBuilder<bool>(
-        stream: bloc.submitCheck,
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          var func;
-          if (snapshot.hasData && snapshot.data) {
-            func = () {};
-          }
-
-          return RaisedButton(
-            onPressed: func,
-            child: Text('ログイン'),
-          );
-        });
+      stream: bloc.submitCheck,
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        var func;
+        if (snapshot.hasData && snapshot.data) {
+          func = () async {
+            var userId = await bloc.userId.first;
+            var password = await bloc.password.first;
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  alignment: Alignment.center,
+                  child: FractionallySizedBox(
+                    widthFactor: 0.80,
+                    heightFactor: 0.50,
+                    child: Column(
+                      children: <Widget>[
+                        Text('ユーザーID： $userId'),
+                        Text('パスワード： $password'),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          };
+        }
+        return RaisedButton(
+          onPressed: func,
+          child: Text('ログイン'),
+        );
+      }
+    );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,16 +106,19 @@ class LoginMainPage extends StatelessWidget {
       ),
       body: Container(
         alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _buildUserIdSection(),
-            _buildPasswordSection(),
-            _buildSubmitButton(),
-          ],
+        child: FractionallySizedBox(
+          widthFactor: 0.60,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              _buildUserIdSection(),
+              _buildPasswordSection(),
+              _buildSubmitButton(),
+            ],
+          ),
         ),
       ),
     );
   }
-
 }
