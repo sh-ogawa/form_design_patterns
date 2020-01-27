@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:form_design_patterns/main.dart';
-import 'package:form_design_patterns/pages/login/main.dart';
+import 'package:form_design_patterns/pages/registration/main.dart';
 import 'package:form_design_patterns/theme/theme.dart';
 import 'package:form_design_patterns/utils/log/logger.dart';
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         );
       },
       title: '入力フォームのカタログ',
-      home: LoginMainPage(),
+      home: RegistrationMainPage(),
     );
   }
 }
