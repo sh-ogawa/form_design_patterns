@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_design_patterns/helper/form_widget.dart';
 import 'package:form_design_patterns/main.dart';
 import 'package:form_design_patterns/utils/log/logger.dart';
 
@@ -11,23 +12,10 @@ class RegistrationMainPage extends StatelessWidget {
   Widget _buildFirstNameSection() {
     return Semantics(
       label: 'input first name',
-      child: Column(
-        children: <Widget>[
-          Text('姓'),
-          StreamBuilder(
-            stream: bloc.firstName,
-            builder: (context, snapshot) {
-              locator<Logger>().debug(snapshot.data);
-              return TextField(
-                enabled: true,
-                maxLines: 1,
-                maxLength: 20,
-                onChanged: bloc.firstNameChanged,
-                textAlign: TextAlign.center,
-              );
-            },
-          ),
-        ],
+      child: createTextField(
+        label: '姓',
+        stream: bloc.firstName,
+        changed: bloc.firstNameChanged,
       ),
     );
   }
@@ -36,23 +24,10 @@ class RegistrationMainPage extends StatelessWidget {
   Widget _buildLastNameSection() {
     return Semantics(
       label: 'input last name',
-      child: Column(
-        children: <Widget>[
-          Text('名'),
-          StreamBuilder(
-            stream: bloc.lastName,
-            builder: (context, snapshot) {
-              locator<Logger>().debug(snapshot.data);
-              return TextField(
-                enabled: true,
-                maxLines: 1,
-                maxLength: 20,
-                onChanged: bloc.lastNameChanged,
-                textAlign: TextAlign.center,
-              );
-            },
-          ),
-        ],
+      child: createTextField(
+        label: '名',
+        stream: bloc.lastName,,
+        changed: bloc.lastNameChanged,
       ),
     );
   }
@@ -61,24 +36,11 @@ class RegistrationMainPage extends StatelessWidget {
   Widget _buildMailAddressSection() {
     return Semantics(
       label: 'input mail address',
-      child: Column(
-        children: <Widget>[
-          Text('メールアドレス'),
-          StreamBuilder(
-            stream: bloc.mailAddress,
-            builder: (context, snapshot) {
-              locator<Logger>().debug(snapshot.data);
-              return TextField(
-                enabled: true,
-                keyboardType: TextInputType.emailAddress,
-                maxLines: 1,
-                maxLength: 20,
-                onChanged: bloc.mailAddressChanged,
-                textAlign: TextAlign.center,
-              );
-            },
-          ),
-        ],
+      child: createTextField(
+        label: 'メールアドレス',
+        keyboardType: TextInputType.emailAddress,
+        stream: bloc.mailAddress,,
+        changed: bloc.mailAddressChanged,
       ),
     );
   }
@@ -87,24 +49,11 @@ class RegistrationMainPage extends StatelessWidget {
   Widget _buildPasswordSection() {
     return Semantics(
       label: 'input password',
-      child: Column(
-        children: <Widget>[
-          Text('パスワード'),
-          StreamBuilder(
-            stream: bloc.password,
-            builder: (context, snapshot) {
-              locator<Logger>().debug(snapshot.data);
-              return TextField(
-                enabled: true,
-                maxLines: 1,
-                maxLength: 20,
-                obscureText: true,
-                onChanged: bloc.passwordChanged,
-                textAlign: TextAlign.center,
-              );
-            },
-          ),
-        ],
+      child: createTextField(
+        label: 'パスワード',
+        stream: bloc.password,
+        changed: bloc.passwordChanged,
+        obscureText: true,
       ),
     );
   }
