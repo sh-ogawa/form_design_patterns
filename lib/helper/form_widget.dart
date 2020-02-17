@@ -7,22 +7,23 @@ var createTextField = ({
   @required Function changed,
   bool obscureText = false,
   keyboardType = TextInputType.text,
-}) => Column(
-  children: <Widget>[
-    Text(label),
-    StreamBuilder(
-      stream: stream,
-      builder: (context, snapshot) {
-        return TextField(
-          enabled: true,
-          keyboardType: keyboardType,
-          maxLines: 1,
-          maxLength: 20,
-          obscureText: obscureText,
-          onChanged: changed,
-          textAlign: TextAlign.center,
-        );
-      },
-    ),
-  ],
+}) => Container(
+  child: StreamBuilder(
+    stream: stream,
+    builder: (context, snapshot) {
+      return TextField(
+        decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: label
+        ),
+        enabled: true,
+        keyboardType: keyboardType,
+        maxLines: 1,
+        maxLength: 20,
+        obscureText: obscureText,
+        onChanged: changed,
+        textAlign: TextAlign.center,
+      );
+    },
+  ),
 );

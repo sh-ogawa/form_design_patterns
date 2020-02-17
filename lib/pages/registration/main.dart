@@ -26,7 +26,7 @@ class RegistrationMainPage extends StatelessWidget {
       label: 'input last name',
       child: createTextField(
         label: '名',
-        stream: bloc.lastName,,
+        stream: bloc.lastName,
         changed: bloc.lastNameChanged,
       ),
     );
@@ -39,7 +39,7 @@ class RegistrationMainPage extends StatelessWidget {
       child: createTextField(
         label: 'メールアドレス',
         keyboardType: TextInputType.emailAddress,
-        stream: bloc.mailAddress,,
+        stream: bloc.mailAddress,
         changed: bloc.mailAddressChanged,
       ),
     );
