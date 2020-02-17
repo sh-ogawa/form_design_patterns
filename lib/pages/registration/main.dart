@@ -54,6 +54,7 @@ class RegistrationMainPage extends StatelessWidget {
         stream: bloc.password,
         changed: bloc.passwordChanged,
         obscureText: true,
+        hint: '数字と大文字英字を１文字含めて、\n8文字以上で入力してください。'
       ),
     );
   }
